@@ -2,6 +2,7 @@
 public class SubNode {
     private final static int MAX_LINES = 3;
     
+    private int weight;
     private int index;
     private int startTime;
     private int endTime;
@@ -10,6 +11,7 @@ public class SubNode {
     private SubNode prev;
     
     public SubNode(int i){
+    		weight = 0;
             index = i;
             startTime = 0;
             endTime = 0;
@@ -97,5 +99,12 @@ public class SubNode {
     public String[] getLines(){
             return lines;
     }
-
+    
+    public int getWeight () {
+    	return weight;
+    }
+    
+    public void addToWeight (int i) {
+    	weight += i;
+    }
 }
