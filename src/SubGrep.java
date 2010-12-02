@@ -28,7 +28,7 @@ public class SubGrep {
 	private Matcher captionRegex;
 	private Pattern bracketPattern;
 	private Vector<SubNode> hits; 
-	//private XmlOut xmlWriter;
+	private XmlOut xmlWriter;
 	
 	private void parseKeywords (String fname) {
 		File keyFile = new File(fname);
@@ -158,21 +158,34 @@ public class SubGrep {
     	Options options = new Options();
     	
     	options.addOption (OptionBuilder.withLongOpt ("keyfile")
-    			.withDescription ("Keywords")
+    			.withDescription ("Keywords file")
                 .hasArg()
                 .withArgName ("KEYFILE")
                 .create ());
     	options.addOption ("c", "closed-caption", false, "The given subtitle is closed captioned");
     	options.addOption ("s", "stem", false, "Use stemmer");
+    	options.addOption ("o", "output", true, "Output xml");
+    	options.addOption (OptionBuilder.withLongOpt ("time-format")
+    			.withDescription ("Time format of the subtitles. Default is milli-seconds")
+                .hasArg()
+                .withArgName ("TIME-FORMAT")
+                .create ());
     	
     	SubGrep sg = new SubGrep ();
     	sg.hits = new Vector<SubNode> ();
     	try {
     	    // parse the command line arguments
     	    CommandLine line = parser.parse (options, args);
-
+    	    
+    	    if (!line.hasOption("o") || !line.hasOption("output")) {
+    	    	// print the output to stdout
+    	    	sg.xmlWriter = new XmlOut ();
+    	    } else {
+    	    	// print the output to the given file
+    	    	sg.xmlWriter = new XmlOut (line.getOptionValue ("o"));
+    	    }
+    	    
     	    if (!line.hasOption ("keyfile")) {
-    	        // print the value of block-size
     	        System.out.println ("No keywords file has been given");
     	        System.exit(0);
     	    }
@@ -201,6 +214,10 @@ public class SubGrep {
     	    	sg.closedCaption = false;    	    	
     	    }
     	    
+    	    if (line.hasOption ("time-format")) {
+    	    	
+    	    }
+    	    
     	    // load the given srt file
     	    if (line.getArgs().length < 1) {
     	    	if (args.length < 1) {
@@ -208,9 +225,11 @@ public class SubGrep {
     	    		System.exit(0);
     	    	}
     	    }
-    	    sg.sub = SrtParser.loadFile(line.getArgs()[0]);
+    	    sg.sub = SrtParser.loadFile (line.getArgs()[0]);
     	    
     	    sg.findKeywords ();
+    	    
+    	    sg.xmlWriter.generate (line.getArgs()[0], sg.hits);
     	    
     	} catch (ParseException exp) {
     	    System.out.println ("Unexpected exception:" + exp.getMessage());
