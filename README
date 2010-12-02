@@ -1,1 +1,8 @@
 subgrep is a java application that allows you to find certain strings in a subtitle file
+
+Command line options:
+ -c, -closed-caption	subtitle file is in closed caption format
+ -s, -stem		use stemming
+ -time-format		
+ -keyfile KEYFILE	a text file which contains the keywords.word per line.
+ -o, -output FILE	File where the output of the program shall be dumped. Default is standard output.
