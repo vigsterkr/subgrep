@@ -8,8 +8,6 @@ import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.MissingArgumentException;
-import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.PosixParser;
@@ -98,8 +96,8 @@ public class SubGrep {
 			}
 			
 			if (this.keyDB.contains (word)) {
-				System.out.println ("!!! in keydb " + word);
-				n.addToWeight (weight);
+				System.out.println ("found in keydb " + word + " " + n.getNumOfWords());
+				n.markWord (word, weight, i+1);
 				
 				/* add node to the hits db if it's not
 				 * already there. 
@@ -109,6 +107,7 @@ public class SubGrep {
 			}
 			
 		}
+		n.incrNumOfWords (tokens.length);
 	}
 	
 	private void findKeywords () {
@@ -116,8 +115,12 @@ public class SubGrep {
 
 		while (curr != null){
 			String[] lines = curr.getLines();
-			for(int i = 0; i < lines.length; i++){
+			
+			for(int i = 0; i < lines.length; i++) {
 				if(lines[i] != null){
+					/* we were indicated that the subtitle is 
+					 * a subtitle for hearing impaired people
+					 */
 					if (this.closedCaption) {
 						// create caption regular expression matcher
 						if (this.captionRegex == null) {
@@ -145,6 +148,7 @@ public class SubGrep {
 							continue;
 					} 
 					String[] tokens = tokenize (lines[i]);
+					
 					processTokens (tokens, curr, 1);
 				}
 			}

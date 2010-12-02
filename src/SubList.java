@@ -17,9 +17,6 @@ public class SubList {
             subtitlePath = null;    
     }
     
-    
-
-    
     public void appendNode(int i){
             if(this.head == null){
                     this.head = new SubNode(i);

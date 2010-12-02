@@ -1,17 +1,24 @@
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Set;
 
 public class SubNode {
     private final static int MAX_LINES = 3;
     
-    private int weight;
+    private int numOfWords;
     private int index;
     private int startTime;
     private int endTime;
     private String lines[];
     private SubNode next;
     private SubNode prev;
+    private HashMap<String, LinkedList<IndexItem>> idx;
     
     public SubNode(int i){
-    		weight = 0;
+    	 	idx = new HashMap<String, LinkedList<IndexItem>> ();
+    		numOfWords = 0;
             index = i;
             startTime = 0;
             endTime = 0;
@@ -100,11 +107,38 @@ public class SubNode {
             return lines;
     }
     
-    public int getWeight () {
-    	return weight;
+    public int getNumOfWords () {
+    	return numOfWords;
     }
     
-    public void addToWeight (int i) {
-    	weight += i;
+    public void setNumOfWords (int n) {
+    	numOfWords = n;
+    }
+    
+    public void markWord (String word, int weight, int pos) {
+    	LinkedList<IndexItem> bucket;
+    	IndexItem it = new IndexItem (weight, pos+numOfWords);
+    	if ((bucket = idx.get (word)) == null) {
+    		bucket = new LinkedList<IndexItem> ();
+    		bucket.add (it);
+    		idx.put (word, bucket);
+    	} else {
+    		bucket.add (it);
+    	}
+    }
+    
+    public Set<String> getKeySet () {
+    	return idx.keySet();
+    }
+    
+    public Iterator<IndexItem> getBucket (String key) {
+    	if (idx.containsKey (key))
+    		return idx.get (key).iterator();
+    	else 
+    		return null;
+    }
+    
+    public void incrNumOfWords (int n) {
+    	numOfWords += n;
     }
 }

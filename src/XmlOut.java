@@ -2,8 +2,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Set;
 import java.util.Vector;
 import java.util.Date;
 
@@ -114,6 +116,8 @@ public class XmlOut {
 		String startTime, endTime;
 		int startTimeInt = n.getStartTime ();
 		int endTimeInt = n.getEndTime ();
+		
+		/* display the time in the requested format */
 		if (colonTime) {
 			startTime = getColonTimeFormat (startTimeInt);
 			endTime = getColonTimeFormat (endTimeInt);
@@ -122,9 +126,31 @@ public class XmlOut {
 			endTime = Integer.toString (endTimeInt);
 		}
 
+		/* generate the xml nodes for the keywords that has been
+		 * found in this subtitle node.
+		 */
+		Set<String> matchKeys = n.getKeySet ();
+		Iterator<String> it = matchKeys.iterator();
+		int sumWeight = 0;
+		String keyXML = new String ();
+		while (it.hasNext()) {
+			String key = it.next ();
+			Iterator<IndexItem> bIt = n.getBucket (key);
+			if (bIt != null) {
+				while (bIt.hasNext ()) {
+					IndexItem item = bIt.next ();
+					keyXML += 
+						String.format ("\t\t\t<keyword value=\"%s\" w=\"%d\" pos=\"%d\"/>\n", key, item.weight, item.pos);
+					sumWeight += item.weight;
+				}
+			}
+		}
+		
+		/* append all the information to the stringbuffer */
 		sb.append ("\t\t<node start=\""+ startTime +"\" end=\"" +
-				endTime +"\" sum-weight=\""+ n.getWeight() +"\">\n");
-		//sb.append ("\t\t\t<keyword value=\"\" w=\"\" pos=\"\"/>\n");
+				endTime +"\" sum-weight=\""+ sumWeight +
+				"\" words=\""+ n.getNumOfWords() + "\">\n");
+		sb.append (keyXML);
 		sb.append ("\t\t</node>\n");
 	}
 }
