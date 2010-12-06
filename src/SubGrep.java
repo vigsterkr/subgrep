@@ -96,7 +96,7 @@ public class SubGrep {
 			}
 			
 			if (this.keyDB.contains (word)) {
-				System.out.println ("found in keydb " + word + " " + n.getNumOfWords());
+				System.out.println ("found in keydb " + word + " at " + (i+1+n.getNumOfWords()));
 				n.markWord (word, weight, i+1);
 				
 				/* add node to the hits db if it's not
@@ -134,13 +134,18 @@ public class SubGrep {
 						boolean foundCC = false;
 						while (this.captionRegex.find ()) {
 							foundCC = true;
-							String[] tokens = tokenize (this.captionRegex.group (1));
+							for (int j=0; j < this.captionRegex.groupCount(); ++j) {
+								if (this.captionRegex.group (j) == null)
+									continue;
 							
-							/* add 5 to weight as it's in a closed
-							 * caption, that expresses emotions
-							 * hopefully
-							 */
-							processTokens (tokens, curr, 5);
+								String[] tokens = tokenize (this.captionRegex.group (j));
+								
+								/* add 5 to weight as it's in a closed
+								 * caption, that expresses emotions
+								 * hopefully
+								 */
+								processTokens (tokens, curr, 5);
+							}
 						}
 						
 						// we don't want to reprocess lines that had captions
@@ -208,7 +213,7 @@ public class SubGrep {
     	    if (line.hasOption('c') || line.hasOption("closed-caption")) {
     	    	sg.closedCaption = true;
     	    	try {
-    	    		sg.bracketPattern = Pattern.compile ("\\(([a-z ,]*)\\)");
+    	    		sg.bracketPattern = Pattern.compile ("\\(([a-zA-Z ,]*)\\)|\\[([a-zA-Z ,]*)\\]");
     	    	} catch (PatternSyntaxException pse) {
     	    		System.out.println("Pattern exception:" + pse.getMessage ());
     	    	} catch (IllegalArgumentException exp) {
