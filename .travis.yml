@@ -17,4 +17,7 @@ before_install:
  - mkdir build
  - cd build
  - cmake ../
+ - ls -la ~/virtualenv/python3.3/
+ - ls -la ~/virtualenv/python3.3/lib
+ - ls -la ~/virtualenv/python3.3/include
  - sudo pip install numpy scipy --use-mirrors
