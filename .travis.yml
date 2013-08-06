@@ -8,5 +8,5 @@ compiler:
 before_install:
  - sudo apt-get update -qq
  - python --version
- - ls -la ~/
- - pip install numpy
+ - ls -laR ~/
+ - sudo pip install numpy scipy --use-mirrors
