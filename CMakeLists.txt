@@ -1,6 +1,10 @@
 project(subgrep)
 cmake_minimum_required(VERSION 2.8)
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 
 FIND_PACKAGE(PythonInterp REQUIRED)
 set(PythonLibs_FIND_VERSION ${PYTHON_VERSION_STRING})
 FIND_PACKAGE(PythonLibs REQUIRED)
+
+FIND_PACKAGE(Ruby)
+FIND_PACKAGE(RubyNArray)
