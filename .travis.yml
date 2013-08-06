@@ -5,8 +5,13 @@ python:
 compiler:
   - gcc
   - clang
+matrix:
+  include:
+    - compiler: clang
+      python: 2.7
+    - compiler: clang
+      python: 3.3
 before_install:
  - sudo apt-get update -qq
  - python --version
- - ls -laR ~/
  - sudo pip install numpy scipy --use-mirrors
