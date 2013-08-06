@@ -7,5 +7,6 @@ compiler:
   - clang
 before_install:
  - sudo apt-get update -qq
- - ls -laR  ~/virtualenv/
+ - python --version
+ - ls -la ~/
  - pip install numpy
