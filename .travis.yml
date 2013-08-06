@@ -7,7 +7,7 @@ matrix:
     - compiler: clang
       python: 2.7
       language: python
-      env: CUSTOM_PKG="sudo pip install numpy --use-mirrors ; sudo pip install scipy --use-mirrors"
+      env: NUMPY_PKG="sudo pip install numpy --use-mirrors" SCIPY="sudo pip install scipy --use-mirrors"
     - compiler: clang
       python: 3.3
       language: python
@@ -18,9 +18,10 @@ matrix:
       env: CUSTOM_PKG="gem install narray"
 before_install:
  - sudo apt-get update -qq
- - sudo apt-get install -qq cmake cython libatlas3gf-base libatlas-dev liblapack-dev
+ - sudo apt-get install -qq cmake libatlas3gf-base libatlas-dev liblapack-dev
  - python --version
  - $CUSTOM_PKG
+ - $SCIPY
  - mkdir build
  - cd build
  - cmake -DCMAKE_PREFIX_PATH=$PREFIX ../
