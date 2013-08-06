@@ -18,7 +18,7 @@ before_install:
  - sudo apt-get update -qq
  - sudo apt-get install -qq cmake libatlas3gf-base libatlas-dev liblapack-dev
  - python --version
- - if [ ! -z ${TRAVIS_RUBY_VERSION} ] ; then gem install narray ; endif
+ - gem install narray
  - mkdir build
  - cd build
  - cmake -DCMAKE_PREFIX_PATH=$PREFIX ../
