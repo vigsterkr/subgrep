@@ -7,11 +7,11 @@ matrix:
     - compiler: clang
       python: 2.7
       language: python
-      env: EXTRA_PACKAGES="python3-numpy python-scipy"
+      env: EXTRA_PACKAGES="python-scipy"
     - compiler: clang
       python: 3.3
       language: python
-      env: EXTRA_PACKAGES="python3-numpy python3-scipy"
+      env: EXTRA_PACKAGES="python3-scipy"
     - compiler: clang
       rvm: 1.8.7
       language: ruby
