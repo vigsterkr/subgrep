@@ -18,7 +18,7 @@ matrix:
       env: CUSTOM_PKG="gem install narray"
 before_install:
  - sudo apt-get update -qq
- - sudo apt-get install -qq cmake libatlas3gf-base libatlas-dev liblapack-dev
+ - sudo apt-get install -qq cmake cython libatlas3gf-base libatlas-dev liblapack-dev
  - python --version
  - $CUSTOM_PKG
  - mkdir build
