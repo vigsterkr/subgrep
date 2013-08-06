@@ -7,19 +7,20 @@ matrix:
     - compiler: clang
       python: 2.7
       language: python
+      env: CUSTOM_PKG="sudo pip install numpy scipy"
     - compiler: clang
       python: 3.3
       language: python
-      env: PREFIX="~/virtualenv/python3.3/"
+      env: CUSTOM_PKG="sudo pip install numpy scipy --use-mirrors" PREFIX="~/virtualenv/python3.3/"
     - compiler: clang
       rvm: 1.8.7
       language: ruby
+      env: CUSTOM_PKG="gem install narray"
 before_install:
  - sudo apt-get update -qq
  - sudo apt-get install -qq cmake libatlas3gf-base libatlas-dev liblapack-dev
  - python --version
- - gem install narray
+ - $CUSTOM_PKG
  - mkdir build
  - cd build
  - cmake -DCMAKE_PREFIX_PATH=$PREFIX ../
- - sudo pip install numpy scipy --use-mirrors
