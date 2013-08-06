@@ -1,3 +1,4 @@
+language: cpp
 compiler:
   - gcc
   - clang
@@ -9,6 +10,9 @@ matrix:
     - compiler: clang
       python: 3.3
       language: python
+    - compiler: clang
+      ruby: 1.8.7
+      language: ruby
 before_install:
  - sudo apt-get update -qq
  - sudo apt-get install -qq cmake libatlas3gf-base libatlas-dev liblapack-dev
