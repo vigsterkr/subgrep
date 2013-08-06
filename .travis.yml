@@ -6,4 +6,3 @@ before_install:
  - sudo apt-get update -qq
  - ls -laR  ~/virtualenv/
  - pip install numpy
-
