@@ -7,7 +7,7 @@ matrix:
     - compiler: clang
       python: 2.7
       language: python
-      env: CUSTOM_PKG="sudo pip install numpy --use-mirrors && sudo pip install scipy --use-mirrors"
+      env: CUSTOM_PKG="sudo pip install numpy --use-mirrors ; sudo pip install scipy --use-mirrors"
     - compiler: clang
       python: 3.3
       language: python
