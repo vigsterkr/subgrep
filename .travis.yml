@@ -1,4 +1,4 @@
-language: cpp
+language: python
 compiler:
   - gcc
   - clang
@@ -13,5 +13,4 @@ before_install:
  - sudo apt-get install -qq libatlas3gf-base libatlas-dev liblapack-dev
  - python --version
  - echo $TRAVIS_PYTHON_VERSION
- - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ] ; then python3 --version ; fi
  - sudo pip install numpy scipy --use-mirrors
