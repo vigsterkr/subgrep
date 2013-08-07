@@ -5,17 +5,9 @@ compiler:
 matrix:
   include:
     - compiler: clang
-      python: 2.7
-      language: python
-      env: EXTRA_PACKAGES="python-scipy"
-    - compiler: clang
       python: 3.3
       language: python
       env: EXTRA_PACKAGES="python3-scipy"
-    - compiler: clang
-      rvm: 1.8.7
-      language: ruby
-      env: CUSTOM_PKG="gem install narray"
     - compiler: clang
       language: objective-c
       env: CUSTOM_PKG="brew update" OSX=1
@@ -24,7 +16,7 @@ virtualenv:
 before_install:
  - if [ -z $OSX ] ; then sudo apt-get update -qq ; else brew update ; fi
  - if [ -z $OSX ] ; then sudo apt-get install -qq cmake libatlas3gf-base libatlas-dev liblapack-dev $EXTRA_PACKAGES ; fi
- - if [ $OSX ] ; then sudo pip install jinja2 ; fi
+ - if [ $OSX ] ; then curl -O https://raw.github.com/rudix-mac/package-manager/master/rudix.py && sudo python rudix.py install rudix && sudo rudix install jinja2 ; fi
  - mkdir build
  - cd build
  - $CUSTOM_PKG
