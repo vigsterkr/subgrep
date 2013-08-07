@@ -18,12 +18,13 @@ matrix:
       env: CUSTOM_PKG="gem install narray"
     - compiler: clang
       language: objective-c
-      env: CUSTOM_PKG="brew update"
+      env: CUSTOM_PKG="brew update" OSX=1
 virtualenv:
   system_site_packages: true
 before_install:
- - sudo apt-get update -qq
- - sudo apt-get install -qq cmake libatlas3gf-base libatlas-dev liblapack-dev $EXTRA_PACKAGES
+ - if [ -z $OSX ] ; then sudo apt-get update -qq ; fi
+ - if [ -z $OSX ] ; then sudo apt-get install -qq cmake libatlas3gf-base libatlas-dev liblapack-dev $EXTRA_PACKAGES ; fi
+ - if [ $OSX] ; then brew update ; fi
  - mkdir build
  - cd build
  - $CUSTOM_PKG
