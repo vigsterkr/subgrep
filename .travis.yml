@@ -10,7 +10,7 @@ matrix:
       env: EXTRA_PACKAGES="python3-scipy"
     - compiler: clang
       language: objective-c
-      env: CUSTOM_PKG="curl -O https://raw.github.com/rudix-mac/package-manager/master/rudix.py && sudo python rudix.py install rudix && sudo rudix install jinja2" OSX=1
+      env: CUSTOM_PKG="curl -O https://raw.github.com/rudix-mac/package-manager/master/rudix.py ; sudo python rudix.py install rudix ; sudo rudix install jinja2" OSX=1
 virtualenv:
   system_site_packages: true
 before_install:
