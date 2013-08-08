@@ -9,8 +9,9 @@ matrix:
       language: python
       env: EXTRA_PACKAGES="python3-scipy"
     - compiler: clang
-      language: objective-c
-      env: CUSTOM_PKG="curl -O https://raw.github.com/rudix-mac/package-manager/master/rudix.py ; sudo python rudix.py install rudix ; sudo rudix install jinja2" OSX=1
+      language: ruby
+      rvm: 1.8.7
+      env: CUSTOM_PKG="gem install narray"
 virtualenv:
   system_site_packages: true
 before_install:
@@ -20,3 +21,5 @@ before_install:
  - cd build
  - $CUSTOM_PKG
  - cmake -DCMAKE_PREFIX_PATH=$PREFIX ../
+ - echo $RUBYLIB
+ - export RUBYLIB=$RUBYLIB:/tt
