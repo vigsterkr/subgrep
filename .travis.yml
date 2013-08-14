@@ -7,7 +7,7 @@ matrix:
     - compiler: clang
       python: 3.3
       language: python
-      env: CUSTOM_PKG="pip install numpy"
+      env: CUSTOM_PKG="pip install -q numpy"
     - compiler: clang
       language: ruby
       rvm: 1.8.7
