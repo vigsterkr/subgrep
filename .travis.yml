@@ -7,7 +7,7 @@ matrix:
     - compiler: clang
       python: 3.3
       language: python
-      env: CUSTOM_PKG="pip install -q numpy"
+      env: CUSTOM_PKG="pip install -q numpy; pip install jinja2"
     - compiler: clang
       language: ruby
       rvm: 1.8.7
@@ -16,7 +16,7 @@ virtualenv:
   system_site_packages: true
 before_install:
  - if [ -z $OSX ] ; then sudo apt-get update -qq ; else brew update ; fi
- - if [ -z $OSX ] ; then sudo apt-get install -qq cmake libatlas3gf-base libatlas-dev liblapack-dev python-jinja2 $EXTRA_PACKAGES ; fi
+ - if [ -z $OSX ] ; then sudo apt-get install -qq cmake libatlas3gf-base libatlas-dev liblapack-dev $EXTRA_PACKAGES ; fi
  - mkdir build
  - cd build
  - $CUSTOM_PKG
