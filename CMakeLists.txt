@@ -12,3 +12,5 @@ else()
   message(couldn't find numpy)
 endif()
 
+FIND_PACKAGE(Jinja2)
+

@@ -16,7 +16,7 @@ virtualenv:
   system_site_packages: true
 before_install:
  - if [ -z $OSX ] ; then sudo apt-get update -qq ; else brew update ; fi
- - if [ -z $OSX ] ; then sudo apt-get install -qq cmake libatlas3gf-base libatlas-dev liblapack-dev $EXTRA_PACKAGES ; fi
+ - if [ -z $OSX ] ; then sudo apt-get install -qq cmake libatlas3gf-base libatlas-dev liblapack-dev python-jinja2 $EXTRA_PACKAGES ; fi
  - mkdir build
  - cd build
  - $CUSTOM_PKG
