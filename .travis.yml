@@ -10,7 +10,7 @@ matrix:
       env: CUSTOM_PKG="pip install numpy"
     - compiler: clang
       language: ruby
-      rvm: 1.9.2
+      rvm: 1.9.3
       env: CUSTOM_PKG="gem install nmatrix"
 virtualenv:
   system_site_packages: true
