@@ -20,6 +20,6 @@ before_install:
  - mkdir build
  - cd build
  - $CUSTOM_PKG
+script:
  - cmake -DCMAKE_PREFIX_PATH=$PREFIX ../
- - echo $RUBYLIB
- - export RUBYLIB=$RUBYLIB:/tt
+ - echo $CUSTOM_PKG
