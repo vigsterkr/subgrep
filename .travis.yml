@@ -7,7 +7,7 @@ matrix:
     - compiler: clang
       python: 3.3
       language: python
-      env: EXTRA_PACKAGES="gfortran"
+      env: PIP_ARGS=" -I --use-wheel --find-links=http://cache27diy-cpycloud.rhcloud.com/3.3/"
     - compiler: clang
       language: ruby
       rvm: 1.9.3
@@ -19,9 +19,9 @@ before_install:
  - if [ -z $OSX ] ; then sudo apt-get install -qq libbz2-dev cdbs libarpack2-dev libatlas-base-dev libblas-dev libglpk-dev libhdf5-serial-dev zlib1g-dev libxml2-dev libreadline6-dev libreadline-dev libsnappy-dev liblzo2-dev liblzma-dev liblapack-dev gdb cmake python-jinja2 $EXTRA_PACKAGES ; fi
  - mkdir build
  - cd build
- - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]] ; then pip install -q --use-mirrors numpy ; fi
+ - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]] ; then pip install $PIP_ARGS numpy ; fi
+ - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]] ; then pip install $PIP_ARGS scipy ; fi
  - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]] ; then pip install --use-mirrors jinja2 ; fi
- - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]] ; then pip install --use-mirrors scipy ; fi
  - $CUSTOM_PKG
 script:
  - cmake -DCMAKE_PREFIX_PATH=$PREFIX ../
