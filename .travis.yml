@@ -9,7 +9,7 @@ matrix:
       language: python
       env:
       - PIP_ARGS=" -I --use-wheel --find-links=http://cache27diy-cpycloud.rhcloud.com/3.3/"
-      - CUSTOM_PKG="echo $TRAVIS_PYTHON_VERSION"
+      - CUSTOM_PKG="echo ${!TRAVIS_PYTHON_VERSION}"
     - compiler: clang
       language: ruby
       rvm: 1.9.3
