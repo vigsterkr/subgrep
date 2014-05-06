@@ -9,7 +9,7 @@ matrix:
       language: python
       env:
       - PIP_ARGS=" -I --use-wheel --find-links=http://cache27diy-cpycloud.rhcloud.com/3.3/"
-      - CUSTOM_PKG="echo ${!TRAVIS_PYTHON_VERSION}"
+      - CUSTOM_PKG="echo ${TRAVIS_PYTHON_VERSION}"
     - compiler: clang
       language: ruby
       rvm: 1.9.3
@@ -19,7 +19,8 @@ before_install:
  - if [ -z $OSX ] ; then sudo apt-get install -qq libbz2-dev cdbs libarpack2-dev libatlas-base-dev libblas-dev libglpk-dev libhdf5-serial-dev zlib1g-dev libxml2-dev libreadline6-dev libreadline-dev libsnappy-dev liblzo2-dev liblzma-dev liblapack-dev gdb cmake python-jinja2 $EXTRA_PACKAGES ; fi
  - mkdir build
  - cd build
- - eval $CUSTOM_PKG
+ - bash eval $CUSTOM_PKG
+ - echo $TRAVIS_PYTHON_VERSION
 script:
  - cmake -DCMAKE_PREFIX_PATH=$PREFIX ../
  - echo $CUSTOM_PKG
