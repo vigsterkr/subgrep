@@ -7,25 +7,19 @@ matrix:
     - compiler: clang
       python: 3.3
       language: python
-      env: PIP_ARGS=" -I --use-wheel --find-links=http://cache27diy-cpycloud.rhcloud.com/3.3/"
+      env:
+      - PIP_ARGS=" -I --use-wheel --find-links=http://cache27diy-cpycloud.rhcloud.com/3.3/"
+      - CUSTOM_PKG="echo $TRAVIS_PYTHON_VERSION"
     - compiler: clang
       language: ruby
       rvm: 1.9.3
       env: CUSTOM_PKG="gem install nmatrix"
-virtualenv:
-  system_site_packages: true
 before_install:
  - if [ -z $OSX ] ; then sudo apt-get update -qq ; else brew update ; fi
  - if [ -z $OSX ] ; then sudo apt-get install -qq libbz2-dev cdbs libarpack2-dev libatlas-base-dev libblas-dev libglpk-dev libhdf5-serial-dev zlib1g-dev libxml2-dev libreadline6-dev libreadline-dev libsnappy-dev liblzo2-dev liblzma-dev liblapack-dev gdb cmake python-jinja2 $EXTRA_PACKAGES ; fi
  - mkdir build
  - cd build
- - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]] ; then pip install -I git+https://github.com/pypa/pip@42102e9deaea99db08b681d06906c2945f6f95e2#egg=pip ; fi
- - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]] ; then pip install -I -U setuptools ; fi
- - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]] ; then pip install wheel ; fi
- - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]] ; then pip install $PIP_ARGS numpy ; fi
- - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]] ; then pip install $PIP_ARGS scipy ; fi
- - if [[ $TRAVIS_PYTHON_VERSION == '3.3' ]] ; then pip install --use-mirrors jinja2 ; fi
- - $CUSTOM_PKG
+ - eval $CUSTOM_PKG
 script:
  - cmake -DCMAKE_PREFIX_PATH=$PREFIX ../
  - echo $CUSTOM_PKG
