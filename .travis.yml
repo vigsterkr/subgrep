@@ -15,11 +15,8 @@ matrix:
       rvm: 1.9.3
       env: CUSTOM_PKG="gem install nmatrix"
 before_install:
- - if [ -z $OSX ] ; then sudo apt-get update -qq ; else brew update ; fi
- - if [ -z $OSX ] ; then sudo apt-get install -qq libbz2-dev cdbs libarpack2-dev libatlas-base-dev libblas-dev libglpk-dev libhdf5-serial-dev zlib1g-dev libxml2-dev libreadline6-dev libreadline-dev libsnappy-dev liblzo2-dev liblzma-dev liblapack-dev gdb cmake python-jinja2 $EXTRA_PACKAGES ; fi
- - mkdir build
- - cd build
- - bash eval $CUSTOM_PKG
+ - echo $SHELL
+ - eval $CUSTOM_PKG
  - echo $TRAVIS_PYTHON_VERSION
 script:
  - cmake -DCMAKE_PREFIX_PATH=$PREFIX ../
